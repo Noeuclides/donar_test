@@ -47,7 +47,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_154609) do
     t.string "first_name"
     t.string "last_name"
     t.string "document_type"
-    t.string "document_id"
+    t.string "document_number"
     t.string "phone_number"
     t.datetime "birthdate"
     t.datetime "discarded_at"

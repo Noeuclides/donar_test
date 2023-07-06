@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :donor do
-    email { "doner@example.com" }
+    email { "donor@example.com" }
     first_name { "first" }
     last_name { "last" }
   end
