@@ -1,0 +1,27 @@
+= form_with model: @form, url: form_payment_method_validate_path, local: true do |form|
+  = render(Form::Error::Component.new(options: { error: @error }))
+
+  div class="mb-4"
+    = form.label :franchise, class: "block text-gray-700 text-sm font-bold mb-2"
+    = form.select :franchise, [[1,1], [2,2]], class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+  div class="mb-4"
+    = form.label :card_number, class: "block text-gray-700 text-sm font-bold mb-2"
+    = form.text_field :card_number, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+  div class="mb-4"
+    = form.label :security_code, class: "block text-gray-700 text-sm font-bold mb-2"
+    = form.text_field :security_code, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+  div class="mb-4"
+    = form.label :expiration_date, class: "block text-gray-700 text-sm font-bold mb-2"
+    = form.date_field :expiration_date, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+  div class="mb-4"
+    = form.label :document_type, class: "block text-gray-700 text-sm font-bold mb-2"
+    = form.select :document_type, [[1, 1], [2, 2]], class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+  div class="mb-4"
+    = form.label :document_number, class: "block text-gray-700 text-sm font-bold mb-2"
+    = form.text_field :document_number, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+  div.text-center
+    button class="btn bg-green-600 py-2 px-8 rounded-md"
+      = "dadada"
+
+
+

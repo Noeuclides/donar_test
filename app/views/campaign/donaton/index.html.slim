@@ -1,0 +1,24 @@
+section[class="register sytra-space" data-controller="sy-app--modal"]
+  div[class="grid grid-cols-5 gap-4"]
+    div[class="col-span-5 lg:col-span-3"]
+      div[class="panel shadow-landing"]
+        div[class="panel-card"]
+          a[ href="tel:6015085880"]
+            div[class="title"]
+              p Hola
+              p
+                span
+                  b Únete
+
+        div[class="panel-card"]
+          a[href="" data-sy-app--modal-target= 'openModal' data-modal='modalVideo' data-action="click->sy-app--modal#open"]
+            div[class="title"]
+              p A esta noble causa.
+
+    div[class="col-span-5 lg:col-span-2 order-first lg:order-last pr-2" id="guest-form"]
+      div[class="form rounded-3xl shadow-landing "]
+        p[class="text-center font-medium text-md"]Regístrate
+        p[class="text-center font-medium text-success-100 text-lg"] ¡Te asesoramos sin costo!
+        div id="donation_form"
+          = render(Form::DonationAmount::Component.new(options: { form: @form }))
+
