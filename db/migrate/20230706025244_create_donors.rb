@@ -10,7 +10,6 @@ class CreateDonors < ActiveRecord::Migration[7.0]
       t.datetime :birthdate
       t.datetime :discarded_at, index: true
 
-
       t.timestamps
     end
   end

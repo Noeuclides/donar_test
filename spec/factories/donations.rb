@@ -9,6 +9,7 @@
 #  ip                :string           not null
 #  payment_date      :datetime
 #  status            :integer          not null
+#  user_agent        :string           not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  campaign_id       :bigint

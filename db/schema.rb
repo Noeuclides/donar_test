@@ -32,6 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_154609) do
     t.string "amount_currency", default: "USD", null: false
     t.integer "status", null: false
     t.string "ip", null: false
+    t.string "user_agent", null: false
     t.datetime "payment_date"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false

@@ -32,6 +32,4 @@ class PaymentMethod < ApplicationRecord
                     diners_club: 3 }
 
   validates :franchise, presence: true
-
-
 end

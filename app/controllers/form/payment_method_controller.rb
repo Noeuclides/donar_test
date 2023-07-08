@@ -1,34 +1,46 @@
-class Form::PaymentMethodController < ApplicationController
-  def index
-  end
-
+class Form::PaymentMethodController < Form::BaseController
   def validate
-    @form = PaymentMethodForm.new(payment_method_form_params.merge({card_token: "dasdasd"}))
+    @form = PaymentMethodForm.new(payment_method_form_params.merge({ card_token: "dasdasd" }))
     if @form.valid?
       session[params_key] = payment_method_form_params.to_h
 
-      donation = CreateDonationService.new(session.instance_variable_get(:@delegate))
-      TransactionService.new(donation, payment_method_form_params[:card_token])
-      # servicio para realizar transacción (pasarela de pago)
-      respond_to do |format|
-        format.turbo_stream { render :'form/payment_method/valid', status: 200, locals: { form: PaymentMethodForm.new }  }
-      end
+      process_donation
+
+      render_valid_form(:'form/payment_method/valid', message: "Gracias por tu donación")
     else
-      respond_to do |format|
-        format.turbo_stream { render :'form/invalid', status: :unprocessable_entity, locals: { error: @form.errors.first.message }  }
-      end
+      render_invalid_form(@form.errors.first.message)
     end
   end
 
   private
-
 
   def payment_method_form_params
     params.require(params_key)
           .permit(:card_token, :document_type, :document_number)
   end
 
-  def params_key
-    PaymentMethodForm.model_name.param_key.to_sym
+  def process_donation
+    donation_service = CreateDonationService.new(
+      donation_params: session_params[:donation_amount_form],
+      donor_params: session_params[:donor_info_form],
+      payment_method_params: session_params[:payment_method_form])
+    transaction_service = TransactionService.new(donation_service, payment_method_form_params[:card_token])
+
+    begin
+      transaction_service.process_transaction
+    rescue => e
+      handle_error(e)
+    end
   end
+
+  def session_params
+    session.instance_variable_get(:@delegate)
+  end
+
+  def handle_error(error)
+    Rails.logger.error("An error occurred during donation processing: #{error.message}")
+
+    render_invalid_form("An error occurred during donation processing.")
+  end
+
 end

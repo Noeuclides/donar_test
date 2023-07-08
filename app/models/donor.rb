@@ -24,8 +24,7 @@ class Donor < ApplicationRecord
   has_many :donations, class_name: Donation.name
   has_many :payment_methods, as: :holder,  class_name: PaymentMethod.name
 
-  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :document_number, uniqueness: true
-  validates :phone_number, uniqueness: true
-
+  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :document_number, presence: true, uniqueness: true, numericality: { only_numeric: true }
+  validates :phone_number, :first_name, :last_name, presence: true
 end

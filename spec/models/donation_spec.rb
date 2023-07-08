@@ -9,6 +9,7 @@
 #  ip                :string           not null
 #  payment_date      :datetime
 #  status            :integer          not null
+#  user_agent        :string           not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  campaign_id       :bigint
@@ -41,7 +42,7 @@ RSpec.describe Donation, type: :model do
   describe "Associations" do
     it { should belong_to(:donor).class_name(Donor.name) }
     it { should belong_to(:payment_method).class_name(PaymentMethod.name) }
-    it { should belong_to(:campaign).class_name(Campaign.name) }
+    it { should belong_to(:campaign).class_name(Campaign.name).optional(true) }
   end
 
   describe "enums" do

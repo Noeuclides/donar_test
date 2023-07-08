@@ -9,6 +9,7 @@
 #  ip                :string           not null
 #  payment_date      :datetime
 #  status            :integer          not null
+#  user_agent        :string           not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  campaign_id       :bigint
@@ -40,6 +41,6 @@ class Donation < ApplicationRecord
 
   belongs_to :donor, class_name: Donor.name
   belongs_to :payment_method, class_name: PaymentMethod.name
-  belongs_to :campaign, class_name: Campaign.name
+  belongs_to :campaign, class_name: Campaign.name, optional: true
 
 end
