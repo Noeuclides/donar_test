@@ -31,6 +31,7 @@
 #
 class Donation < ApplicationRecord
   include Discard
+  include PgSearch::Model
 
   #===== Fields
   monetize :amount_cents
@@ -42,5 +43,4 @@ class Donation < ApplicationRecord
   belongs_to :donor, class_name: Donor.name
   belongs_to :payment_method, class_name: PaymentMethod.name
   belongs_to :campaign, class_name: Campaign.name, optional: true
-
 end

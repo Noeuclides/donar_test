@@ -32,10 +32,11 @@
 FactoryBot.define do
   factory :donation do
     donor { nil }
-    payment_method_references { "MyString" }
+    payment_method { nil }
     campaign { nil }
     status { 1 }
     ip { "MyString" }
     payment_date { "2023-07-06 10:13:25" }
+    user_agent { "MyString" }
   end
 end

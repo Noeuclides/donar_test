@@ -53,6 +53,7 @@ gem "bootsnap", require: false
 
 gem 'discard', '~> 1.2'
 gem 'money-rails', '~> 1.12'
+gem 'devise'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -84,5 +85,11 @@ group :test do
 end
 
 gem "slim-rails"
-# gem 'stimulus_reflex', "= 3.5.0.pre8"
 gem "view_component"
+
+gem "cable_ready", "5.0.0.pre8"
+gem "stimulus_reflex", "3.5.0.pre8"
+gem "pagy", "~> 5.2.2"
+gem "kredis", "~> 1.1.0"
+gem "pg_search", "~> 2.3.5"
+gem 'all_futures', github: 'leastbad/all_futures', branch: 'master'

@@ -10,9 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_06_154609) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_10_175850) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "admins", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_admins_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
 
   create_table "campaigns", force: :cascade do |t|
     t.string "name"
@@ -57,30 +69,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_154609) do
     t.index ["discarded_at"], name: "index_donors_on_discarded_at"
   end
 
-  create_table "payment_method_inscriptions", force: :cascade do |t|
-    t.string "payment_method_type", null: false
-    t.bigint "payment_method_id", null: false
-    t.string "card_token", null: false
-    t.integer "status"
-    t.datetime "discarded_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["discarded_at"], name: "index_payment_method_inscriptions_on_discarded_at"
-    t.index ["payment_method_type", "payment_method_id"], name: "index_payment_method_inscriptions_on_payment_method"
-  end
-
   create_table "payment_methods", force: :cascade do |t|
+    t.string "holder_type", null: false
     t.bigint "holder_id", null: false
     t.integer "franchise"
+    t.string "card_token", null: false
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["discarded_at"], name: "index_payment_methods_on_discarded_at"
-    t.index ["holder_id"], name: "index_payment_methods_on_holder_id"
+    t.index ["holder_type", "holder_id"], name: "index_payment_methods_on_holder"
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.bigint "payment_method_inscription_id", null: false
+    t.bigint "payment_method_id", null: false
     t.integer "status"
     t.integer "amount_cents", default: 0, null: false
     t.string "amount_currency", default: "USD", null: false
@@ -89,12 +91,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_154609) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["discarded_at"], name: "index_transactions_on_discarded_at"
-    t.index ["payment_method_inscription_id"], name: "index_transactions_on_payment_method_inscription_id"
+    t.index ["payment_method_id"], name: "index_transactions_on_payment_method_id"
   end
 
   add_foreign_key "donations", "campaigns"
   add_foreign_key "donations", "donors"
   add_foreign_key "donations", "payment_methods"
-  add_foreign_key "payment_methods", "donors", column: "holder_id"
-  add_foreign_key "transactions", "payment_method_inscriptions"
+  add_foreign_key "transactions", "payment_methods"
 end

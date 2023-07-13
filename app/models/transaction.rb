@@ -2,24 +2,24 @@
 #
 # Table name: transactions
 #
-#  id                            :bigint           not null, primary key
-#  amount_cents                  :integer          default(0), not null
-#  amount_currency               :string           default("USD"), not null
-#  discarded_at                  :datetime
-#  raw_response                  :jsonb
-#  status                        :integer
-#  created_at                    :datetime         not null
-#  updated_at                    :datetime         not null
-#  payment_method_inscription_id :bigint           not null
+#  id                :bigint           not null, primary key
+#  amount_cents      :integer          default(0), not null
+#  amount_currency   :string           default("USD"), not null
+#  discarded_at      :datetime
+#  raw_response      :jsonb
+#  status            :integer
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  payment_method_id :bigint           not null
 #
 # Indexes
 #
-#  index_transactions_on_discarded_at                   (discarded_at)
-#  index_transactions_on_payment_method_inscription_id  (payment_method_inscription_id)
+#  index_transactions_on_discarded_at       (discarded_at)
+#  index_transactions_on_payment_method_id  (payment_method_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (payment_method_inscription_id => payment_method_inscriptions.id)
+#  fk_rails_...  (payment_method_id => payment_methods.id)
 #
 class Transaction < ApplicationRecord
   include Discard
@@ -34,5 +34,5 @@ class Transaction < ApplicationRecord
                 canceled: 3,
                 rejected: 4 }, _default: :created
 
-  belongs_to :payment_method_inscription, class_name: PaymentMethod::Inscription.name
+  belongs_to :payment_method, class_name: PaymentMethod.name
 end
