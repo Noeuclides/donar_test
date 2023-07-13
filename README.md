@@ -1,4 +1,5 @@
 # README
+This project uses rails 7.
 
 ## Installation
 
@@ -22,7 +23,12 @@ $ bundle install
 $ rails db:drop db:create db:migrate db:test:prepare
 ```
 
-2) Run specs (unit tests)
+2) Build tailwind
+```bash
+$ rails tailwindcss:build
+```
+
+3) Run specs (unit tests)
 
 ```bash
 $ rspec
@@ -32,18 +38,18 @@ or
 $ bundle exec rspec
 ```
 
-3) Run seeds (there it is the admin login credentials)
+4) Run seeds (there it is the admin login credentials)
 
 ```bash
 $ rails db:seed --trace
 ```
 
-4) Run the server
+5) Run the server
 ```bash
 $ rails s
 ```
 
-5) In another console tab run tailwind:watch tasks:
+6) In another console tab run tailwind:watch tasks:
 ```bash
 $ rails tailwindcss:watch
 ```
