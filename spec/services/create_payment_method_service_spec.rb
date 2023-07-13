@@ -7,8 +7,9 @@ RSpec.describe CreatePaymentMethodService do
     context 'when the params are valid' do
       let(:valid_params) do
         {
-          holder_id: donor.id,
-          franchise: 'visa'
+          holder: donor,
+          franchise: 'visa',
+          card_token: 'token'
         }
       end
 

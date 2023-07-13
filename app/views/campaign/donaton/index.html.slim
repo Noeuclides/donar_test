@@ -1,24 +1,14 @@
-section[class="register sytra-space" data-controller="sy-app--modal"]
-  div[class="grid grid-cols-5 gap-4"]
-    div[class="col-span-5 lg:col-span-3"]
-      div[class="panel shadow-landing"]
-        div[class="panel-card"]
-          a[ href="tel:6015085880"]
-            div[class="title"]
-              p Hola
-              p
-                span
-                  b Únete
-
-        div[class="panel-card"]
-          a[href="" data-sy-app--modal-target= 'openModal' data-modal='modalVideo' data-action="click->sy-app--modal#open"]
-            div[class="title"]
-              p A esta noble causa.
-
-    div[class="col-span-5 lg:col-span-2 order-first lg:order-last pr-2" id="guest-form"]
-      div[class="form rounded-3xl shadow-landing "]
-        p[class="text-center font-medium text-md"]Regístrate
-        p[class="text-center font-medium text-success-100 text-lg"] ¡Te asesoramos sin costo!
-        div id="donation_form"
-          = render(Form::DonationAmount::Component.new(options: { form: @form }))
-
+.bg-white
+  .flex.flex-col.items-center.justify-between.pt-0.pr-10.pb-0.pl-10.mt-0.mr-auto.mb-0.ml-auto.max-w-7xl.xl:px-5.lg:flex-row
+    .flex.flex-col.items-center.w-full.pt-2.pr-10.pl-10.lg:pt-8.lg:flex-row
+      .w-full.bg-cover.relative.max-w-l.w-6/12
+        .flex.flex-col.items-center.justify-center.w-full.h-full.relative.lg:pr-10
+          img.btn-[src="https://images.unsplash.com/photo-1554830072-52d78d0d4c18?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1035&q=80"]
+          p.absolute.text-4xl.text-white.font-bold.text-lg.text-center.top-0.py-2
+            |Adopta!
+      .w-full.mt-20.mr-0.mb-0.ml-0.relative.z-10.max-w-xl.w-6/12
+        .flex.flex-col.items-start.justify-start.pt-10.pr-10.pb-10.pl-10.bg-white.shadow-2xl.rounded-xl.relative.z-10
+          p.w-full.text-4xl.font-medium.text-center.leading-snug.font-serif.text-sky-950
+            | También puedes apoyar donando a la fundación
+            .w-full.mt-6.mr-0.mb-0.ml-0.space-y-8 id="donation_form"
+              = render Form::DonationAmount::Component.new(options: { form: @form, error: @error, message: flash[:message] })

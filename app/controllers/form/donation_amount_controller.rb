@@ -2,7 +2,7 @@ class Form::DonationAmountController < Form::BaseController
   def validate
     @form = DonationAmountForm.new(donation_amount_form_params)
     if @form.valid?
-      session[params_key] = donation_amount_form_params.to_h
+      session[params_key] = donation_amount_form_params.to_h.merge({ ip: request.ip, user_agent: request.user_agent })
 
       render_valid_form(:'form/donor_info', form: DonorInfoForm.new)
     else

@@ -1,40 +1,48 @@
 class Form::PaymentMethodController < Form::BaseController
+
+
   def validate
-    @form = PaymentMethodForm.new(payment_method_form_params.merge({ card_token: "dasdasd" }))
+    @form = PaymentMethodForm.new(payment_method_form_params)
     if @form.valid?
-      session[params_key] = payment_method_form_params.to_h
+      session[params_key] = payment_method_form_params.slice(:card_token, :franchise)
 
       process_donation
 
-      render_valid_form(:'form/payment_method/valid', message: "Gracias por tu donación")
+      flash[:message] = "Gracias por Donar"
+      redirect_to campaign_donaton_path, status: :see_other
     else
-      render_invalid_form(@form.errors.first.message)
+      flash[:message] = "Algo salió mal"
+      redirect_to campaign_donaton_path, status: :see_other
     end
   end
 
   private
 
   def payment_method_form_params
-    params.require(params_key)
-          .permit(:card_token, :document_type, :document_number)
+    permited_params = params.require(params_key)
+          .permit(:card_token, :document_type, :document_number, :franchise)
+    permited_params[:franchise] = permited_params[:franchise].to_i if permited_params[:franchise].present?
+    permited_params
   end
 
   def process_donation
-    donation_service = CreateDonationService.new(
-      donation_params: session_params[:donation_amount_form],
-      donor_params: session_params[:donor_info_form],
-      payment_method_params: session_params[:payment_method_form])
-    transaction_service = TransactionService.new(donation_service, payment_method_form_params[:card_token])
-
     begin
-      transaction_service.process_transaction
+      donation = CreateDonationService.new(
+        donation_params: session_params[:donation_amount_form],
+        donor_params: session_params[:donor_info_form].merge(payment_method_form_params.to_h.slice(:document_number, :document_type)),
+        payment_method_params: session_params[:payment_method_form]).create
+
+      transaction_service = TransactionService.new(donation, payment_method_form_params[:card_token])
+
+      transaction_service.create
     rescue => e
+      debugger
       handle_error(e)
     end
   end
 
   def session_params
-    session.instance_variable_get(:@delegate)
+    session.instance_variable_get(:@delegate).with_indifferent_access
   end
 
   def handle_error(error)

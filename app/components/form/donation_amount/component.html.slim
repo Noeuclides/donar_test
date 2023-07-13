@@ -1,17 +1,21 @@
-= form_with model: @form, url: form_donation_amount_validate_path, local: true do |form|
+= form_with model: @form, url: form_donation_amount_validate_path, local: true, class:"h-full" do |form|
   = render(Form::Error::Component.new(options: { error: @error }))
-  div class="mb-4"
-    = form.label :amount, class:"block text-gray-700 text-sm font-bold mb-2"
+  div class="py-4"
+    = form.label :amount, "Cantidad", class:"bg-white font-medium text-gray-600"
     = form.collection_radio_buttons(:amount, [5000,6000,7000,8000], :to_s, :to_s, include_hidden: true) do |b|
-      div
+      div class="border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
         = b.label class: "pl-4" do
           = b.radio_button class: "text-green-300"
           span class="ml-2 text-gray-700"
             = b.text
 
-  div.text-center
-    button class="btn bg-green-600 py-2 px-8 rounded-md"
-      = "dadada"
+  div class="py-4"
+    button class="w-full inline-block pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-sky-950 rounded-lg transition duration-200 hover:bg-indigo-600 ease"
+      = "siguiente"
+
+- if @message.present?
+  = @message
+
 
 
 

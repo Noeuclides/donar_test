@@ -1,25 +1,26 @@
 = form_with model: @form, url: form_donor_info_validate_path, local: true do |form|
   = render(Form::Error::Component.new(options: { error: @error }))
 
-  div class="mb-4"
-    = form.label :first_name, class:"block text-gray-700 text-sm font-bold mb-2"
-    = form.text_field :first_name, class:"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-  div class="mb-4"
-    = form.label :last_name, class:"block text-gray-700 text-sm font-bold mb-2"
-    = form.text_field :last_name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-  div class="mb-4"
-    = form.label :email, class: "block text-gray-700 text-sm font-bold mb-2"
-    = form.text_field :email, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-  div class="mb-4"
-    = form.label :phone_number, class: "block text-gray-700 text-sm font-bold mb-2"
-    = form.text_field :phone_number, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-  div class="mb-4"
-    = form.label :birthdate, class: "block text-gray-700 text-sm font-bold mb-2"
-    = form.date_field :birthdate, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+  div class=""
+    div class="grid max-w-3xl gap-2 py-4 sm:grid-cols-2 bg-white rounded-md"
+      div class="grid"
+        = form.label :first_name, class:"bg-white font-medium text-gray-600"
+        = form.text_field :first_name, class:"border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
+      div class="grid"
+        = form.label :last_name, class:"bg-white font-medium text-gray-600"
+        = form.text_field :last_name, class:"border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
+  div class="py-4"
+    = form.label :email, class: "bg-white font-medium text-gray-600"
+    = form.text_field :email, class:"border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
+  div class="py-4"
+    = form.label :phone_number, class: "bg-white font-medium text-gray-600"
+    = form.text_field :phone_number, class:"border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
+  div class="py-4"
+    = form.label :birthdate, class: "bg-white font-medium text-gray-600"
+    = form.date_field :birthdate, class:"border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
 
-  div.text-center
-    button class="btn bg-green-600 py-2 px-8 rounded-md"
-      = "dadada"
-
+  div class="py-4"
+    button class="w-full inline-block pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-sky-950 rounded-lg transition duration-200 hover:bg-indigo-600 ease"
+      = "siguiente"
 
 

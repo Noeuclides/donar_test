@@ -5,5 +5,6 @@ class Form::DonationAmount::Component < ApplicationComponent
   def initialize(options: {}, component_options: {})
     @form = options[:form]
     @error = options[:error]
+    @message = options[:message]
   end
 end

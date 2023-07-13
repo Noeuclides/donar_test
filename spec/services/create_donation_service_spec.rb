@@ -19,7 +19,8 @@ RSpec.describe CreateDonationService do
     let(:payment_method_params) do
       {
         franchise: 'visa',
-        holder: create(:donor)
+        holder: create(:donor),
+        card_token: "token"
       }
     end
 

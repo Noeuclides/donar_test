@@ -6,6 +6,21 @@ class TransactionService
   end
 
   def create
-    payment_method = PaymentMethodInscription.create! payment_method_params: @payment_method, card_token: @card_token
+    transaction = Transaction.create! payment_method: @payment_method, amount: @amount
+
+    payment_response = PaymentGateway::MercadoPagoDummyService.new(transaction).process_transaction
+
+    if payment_response[:status] == "approved"
+      transaction.paid!
+      donation = transaction.payment_method.donation
+      donation.payment_date = DateTime.now
+      donation.collected!
+
+      DonorMailer.donation_successful(donation.donor).deliver_now
+    else
+      transaction.rejected!
+      transaction.payment_method.donation.rejected!
+    end
   end
+
 end

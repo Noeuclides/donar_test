@@ -7,7 +7,8 @@ class CreateDonationService
 
   def create
     donor = CreateDonorService.new(@donor_params).create
-    payment_method = CreatePaymentMethodService.new(@payment_method_params).create
+
+    payment_method = CreatePaymentMethodService.new(@payment_method_params.merge({ holder: donor })).create
     donation = Donation.new(@donation_params)
     donation.donor = donor
     donation.payment_method = payment_method

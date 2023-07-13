@@ -3,7 +3,7 @@ class Form::DonorInfoController < Form::BaseController
     @form = DonorInfoForm.new(donor_info_form_params)
 
     if @form.valid?
-      session[params_key] = donor_info_form_params.to_h.merge({ ip: request.ip, user_agent: request.user_agent })
+      session[params_key] = donor_info_form_params
       render_valid_form(:'form/payment_method', form: PaymentMethodForm.new)
     else
       render_invalid_form(@form.errors.first.message)
