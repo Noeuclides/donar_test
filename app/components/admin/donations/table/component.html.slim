@@ -1,0 +1,47 @@
+- if @items&.empty?
+  = "No hay donaciones registradas"
+- else
+  div[ class="table_index flex flex-col content-center justify-center  pt-8 w-full pl-12 pr-12" data-controller="admin--donations--component"]
+    div[class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8"]
+      div[class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8"]
+        table[class="min-w-full divide-y divide-gray-200"]
+          thead
+            tr
+              tr[class="bg-gray-50"]
+                th[scope="col" class="text-center px-6 py-3 text-left text-xs font-bold text-gray-500 "]
+                  |ID
+                th[scope="col" class="text-center px-6 py-3 text-left text-xs font-bold text-gray-500 "]
+                  |Donante
+                th[scope="col" class="text-center px-6 py-3 text-left text-xs font-bold text-gray-500 "]
+                  |Fecha de pago
+                th[scope="col" class="text-center px-6 py-3 text-left text-xs font-bold text-gray-500 "]
+                  |Campaña
+                th[scope="col" class="text-center px-6 py-3 text-left text-xs font-bold text-gray-500 "]
+                  |Cantidad
+          tbody[id='autmatic_debit' class="bg-white divide-y divide-gray-200"]
+            - @items.each do |item|
+              tr id='#{dom_id(item)}'
+                td[class="px-6 py-4 whitespace-nowrap text-center"]
+                  div[class=""]
+                    = item.id
+                td[class="px-6 py-4 whitespace-nowrap"]
+                  div[class="flex items-center"]
+                    = item.donor.first_name
+                td[class="px-6 py-4 whitespace-nowrap"]
+                  div[class="flex items-center"]
+                    = item.payment_date&.strftime("%d/%m/%Y %I:%M:%S %P")
+                td[class="px-6 py-4 whitespace-nowrap text-center"]
+                  div[class=""]
+                    = item.campaign&.name
+                td[class="px-6 py-4 whitespace-nowrap text-center"]
+                  div[class=""]
+                    = item.amount
+                td[class="px-6 py-4 whitespace-nowrap text-center"]
+                  a[class="w-8 h-8 rounded-full border-2 p-1 mx-1 cursor-pointer" data-action="click->admin--donations--component#display_modal" id="#{item.id}"]
+                    i[class="far fa-trash-alt text-lg"]
+                      |eliminar
+                td[class="px-6 py-4 whitespace-nowrap text-center"]
+                  = link_to "Actualizar", edit_admin_donation_path(id: item.id), class:"w-8 h-8 rounded-full border-2 p-1 mx-1 cursor-pointer"
+
+              div[id="modal-#{item.id}" class="hidden z-50 bg-gray-500 bg-opacity-50 transition-opacity fixed inset-0 w-full h-full overflow-y-auto"]
+                = render(Admin::Donations::ModalDelete::Component.new(options: { donation_id: item.id }))

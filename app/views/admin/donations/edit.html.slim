@@ -1,0 +1,25 @@
+= form_with model: @donation, url: admin_donation_path, local: true, method: :put do |form|
+  = render(Form::Error::Component.new(options: { error: @error }))
+
+  div class="mb-4"
+    = form.label :amount, class:"block text-gray-700 text-sm font-bold mb-2"
+    = form.number_field :amount, class:"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+  div class="mb-4"
+    = form.label :payment_date, class:"block text-gray-700 text-sm font-bold mb-2"
+    = form.date_field :payment_date, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+  div class="mb-4"
+    = form.label :status, class: "block text-gray-700 text-sm font-bold mb-2"
+    = form.select :status, options_for_select(Donation.statuses), class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+  div class="mb-4"
+    = form.label :campaign_id, class: "block text-gray-700 text-sm font-bold mb-2"
+    = form.collection_select :campaign, Campaign.all, :id, :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+  div class="mb-4"
+    = form.label :payment_method_id, class: "block text-gray-700 text-sm font-bold mb-2"
+    = form.collection_select :payment_method_id, @donation.donor.payment_methods, :id, ->(pm) { "#{pm.franchise} - #{pm.holder.first_name}"}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+
+  div.text-center
+    button class="btn bg-green-600 py-2 px-8 rounded-md"
+      = "Actualizar"
+
+
+

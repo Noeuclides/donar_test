@@ -1,0 +1,17 @@
+nav[class="flex flex-col items-center justify-center my-12 ml-8 mr-8" id="paginator_component"]
+  div[class="flex text-gray-700"]
+    div[class="mr-5 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 cursor-pointer shadow-lg"]
+      a[href="#" data-reflex="#{@reflex_action}" data-filter="#{@filter&.id}" data-page="#{ @pagy.prev || 1 }"]
+        span[class="fas fa-arrow-left"]
+
+    div[class="flex items-center h-12 font-medium text-xs bg-white border border-gray-300 rounded-md shadow-lg"]
+      - @pagy.series.each do |item|
+        - if item == :gap
+          a[class="page-link" id="page_gap_li"]...
+        - else
+          a[href="#" id="page_#{ item }_li" data-reflex="#{@reflex_action}" data-page="#{item}" data-filter="#{@filter&.id}" class="#{ @filter&.page == item.to_i  ? "w-10 h-8 flex justify-center items-center rounded-md cursor-pointer leading-5 transition duration-150 ease-in ml-2 mr-2" : "w-12 flex justify-center items-center cursor-pointer leading-5 transition duration-150 ease-in text-black" }"]
+            = item
+
+    div[class="ml-3 cursor-pointer realtive inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 shadow-lg"]
+      a[href="#" id="page_next_li" data-reflex="#{@reflex_action}" data-page="#{ @pagy.next || @pagy.last }" data-filter="#{@filter&.id}"]
+        span[class="fas fa-arrow-right"]

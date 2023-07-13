@@ -1,0 +1,26 @@
+= form_with url: admin_donations_path, method: :get, scope: :search do |form|
+  div[class="pl-12 pr-5  flex flex-wrap justify-around"]
+    div[class="pt-5 md:pl-5 "]
+      p[class="pl-14 pt-5 text-sm italic"]
+      = form.label :campaign
+      = form.collection_select :campaign, Campaign.all, :id, :name, { include_blank: true },
+              class: 'text-xs border border-gray-200 focus:outline-none rounded-md focus:border-gray-500 focus:shadow-sm w-full p-3 h-12 mr-5',
+              data: { reflex: 'change->Donations::FilterReflex#search_campaign', filter: @filter.id }
+
+  div[class="pl-16 pr-5 flex flex-wrap justify-around"]
+    div[class=""]
+      div[class="block"]
+        p[class="pl-14 pt-5 text-sm italic"] Filtra por fecha de pago:
+      div
+        = form.fields_for :payment_date do |start_date_form|
+          div[class="flex justify-around"]
+            div[class="pt-6"]
+              = start_date_form.date_field :gte,
+                      class: 'text-xs border border-gray-200 focus:outline-none rounded-md focus:border-gray-500 focus:shadow-sm  p-3 h-12 w-full md:w-40',
+                      data: { reflex: 'change->Donations::FilterReflex#search_payment_date_start', filter: @filter.id }
+            div[class="pt-9"]
+              p[class="text-sm pl-4 pr-4 "] hasta
+            div[class="pt-6"]
+              = start_date_form.date_field :lte,
+                      class: 'text-xs border border-gray-200 focus:outline-none rounded-md focus:border-gray-500 focus:shadow-sm  p-3 h-12 w-full md:w-40',
+                      data: { reflex: 'change->Donations::FilterReflex#search_payment_date_end', filter: @filter.id }

@@ -1,0 +1,12 @@
+div[class="fixed z-50 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" ]
+  div[class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"]
+    div[class="bg-modal fixed inset-0 backdrop-blur-sm transition-opacity" aria-hidden="true"]
+    span[class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true"]&#8203;
+    div[class="cont inline-block  bg-white rounded-xl text-left shadow-xl py-8 px-6 transform transition-all mt-16 mb-8 align-middle"]
+      div[class="text-center mb-8"]
+        h2[class="font-semibold mt-2 font-semibold text-lg w-80"]¿Estas seguro que deseas eliminar esta donación?
+        = "ID #{@donation_id}"
+      div[class="flex justify-center"]
+        a[id="close-modal-#{@donation_id}" class="rounded-3xl text-center cursor-pointer font-semibold border-2 bg-white py-1 px-6 mr-4 transition duration-700 ease-out transform hover:scale-110" data-action="click->admin--donations--component#close_modal"]Cancelar
+        = form_with url: admin_donation_path(id: @donation_id), method: :delete, id: "formDelete" do |_|
+          button[class="rounded-3xl text-center cursor-pointer font-semibold pt-1.5 px-6 transition duration-700 ease-out transform hover:scale-110"] Eliminar

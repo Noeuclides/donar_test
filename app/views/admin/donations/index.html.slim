@@ -1,0 +1,7 @@
+div
+  div[class="w-full pb-5"]
+    = render Admin::Donations::Filters::Component.new(options: { filter: @filter })
+  div id='items_list'
+    = render Admin::Donations::Table::Component.new(options: { filter: @filter, items: @items })
+  div#paginator
+    = render Admin::Paginator::Component.new(options: { pagy: @pagy, reflex_action: 'click->Donations::FilterReflex#paginate', filter: @filter })
