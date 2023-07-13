@@ -1,0 +1,2 @@
+module Campaign::DonatonHelper
+end

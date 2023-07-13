@@ -1,24 +1,53 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Installation
 
-Things you may want to cover:
+1) Clone this repository
 
-* Ruby version
+2) Install ruby dependencies
 
-* System dependencies
+```bash
+$ bundle install
+```
 
-* Configuration
+## Usage
 
-* Database creation
+### Set up environment
 
-* Database initialization
+1) Set up database
 
-* How to run the test suite
+1) Create and Run migrations in database:
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+$ rails db:drop db:create db:migrate db:test:prepare
+```
 
-* Deployment instructions
+2) Run specs (unit tests)
 
-* ...
+```bash
+$ rspec
+```
+or
+```bash
+$ bundle exec rspec
+```
+
+3) Run seeds (there it is the admin login credentials)
+
+```bash
+$ rails db:seed --trace
+```
+
+4) Run the server
+```bash
+$ rails s
+```
+
+5) In another console tab run tailwind:watch tasks:
+```bash
+$ rails tailwindcss:watch
+```
+
+Then go to http://localhost:3000/donaton to donate
+
+And go to http://localhost:3000/admin/donations to manage donations

@@ -1,0 +1,2 @@
+module Form::DonationAmountHelper
+end
